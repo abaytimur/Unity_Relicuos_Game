@@ -20,7 +20,7 @@ public class CountDownManager : MonoBehaviour
     {
         _rectTransform = countDownImage.GetComponent<RectTransform>();
         _rectTransform1 = buttonDisablePanel.GetComponent<RectTransform>();
-        // StartCoroutine(CountDownRoutine());
+        StartCoroutine(CountDownRoutine());
     }
 
     public IEnumerator CountDownRoutine()
@@ -28,30 +28,29 @@ public class CountDownManager : MonoBehaviour
         _rectTransform1.DOScale(1, .001f);
             
         countDownText.text = "3";
-        yield return new WaitForSeconds(.4f);
+        // yield return new WaitForSeconds(.4f);
 
-        _rectTransform.DOScale(1, 0.4f).SetEase(Ease.OutBack);
-        yield return new WaitForSeconds(.4f);
-        _rectTransform.DOScale(0, 0.4f).SetEase(Ease.InBack);
-        yield return new WaitForSeconds(.4f);
+        _rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        yield return new WaitForSeconds(.3f);
+        _rectTransform.DOScale(0, 0.3f).SetEase(Ease.InBack);
+        yield return new WaitForSeconds(.3f);
 
         countDownText.text = "2";
-        yield return new WaitForSeconds(.4f);
+        yield return new WaitForSeconds(.3f);
 
-        _rectTransform.DOScale(1, 0.4f).SetEase(Ease.OutBack);
-        yield return new WaitForSeconds(.4f);
-        _rectTransform.DOScale(0, 0.4f).SetEase(Ease.InBack);
-        yield return new WaitForSeconds(.4f);
+        _rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        yield return new WaitForSeconds(.3f);
+        _rectTransform.DOScale(0, 0.3f).SetEase(Ease.InBack);
+        yield return new WaitForSeconds(.3f);
 
         countDownText.text = "1";
         yield return new WaitForSeconds(.4f);
 
-        _rectTransform.DOScale(1, 0.4f).SetEase(Ease.OutBack);
-        yield return new WaitForSeconds(.4f);
-        _rectTransform.DOScale(0, 0.4f).SetEase(Ease.InBack);
-        yield return new WaitForSeconds(.4f);
+        _rectTransform.DOScale(1, 0.3f).SetEase(Ease.OutBack);
+        yield return new WaitForSeconds(.3f);
+        _rectTransform.DOScale(0, 0.3f).SetEase(Ease.InBack);
+        yield return new WaitForSeconds(.3f);
 
-        
         _rectTransform1.DOScale(0, .001f);
         StopAllCoroutines();
     }

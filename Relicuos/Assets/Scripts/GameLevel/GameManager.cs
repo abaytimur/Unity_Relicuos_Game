@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text upperRectText;
     [SerializeField] private Text scoreText;
     [SerializeField] private AudioClip startSound, correctSound, wrongSound, endSound;
-
+    
     private HighScoreManager _highScoreManager;
     private CountDownManager _countDownManager;
     private TimerManager _timerManager;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     private int _totalPoints; 
     private int _increasePoints;
     private int _correctNumberText, _wrongNumberText;
-    public int totalPointsForHighScore;
+    [NonSerialized] public int totalPointsForHighScore;
     
     private AudioSource _audioSource;
 
@@ -81,14 +81,24 @@ public class GameManager : MonoBehaviour
     {
         _audioSource.PlayOneShot(startSound);
 
-        _canvasGroup.DOFade(0, 6f);
-        _canvasGroup1.DOFade(1, 1f);
+        Invoke(nameof(FadeInCanvasGroupForInvoke2),3.5f);
+        Invoke(nameof(FadeInCanvasGroupForInvoke),3.5f);
         WhichNumberOfGame();
 
         StartCoroutine(_countDownManager.CountDownRoutine());
-        Invoke(nameof(StartTimer),3f);
+        Invoke(nameof(StartTimer),2.4f);
+    }
+
+    private void FadeInCanvasGroupForInvoke()
+    {
+        _canvasGroup1.DOFade(1, 5f).SetEase(Ease.OutBack);
     }
     
+    private void FadeInCanvasGroupForInvoke2()
+    {
+        _canvasGroup.DOFade(0, 5f).SetEase(Ease.OutBack);
+    }
+
 
     private void StartTimer()
     {
@@ -328,11 +338,7 @@ public class GameManager : MonoBehaviour
             LowerTheCounterIfPlayerFails();
             _wrongNumberText++;
             
-            _totalPoints -= 5;  
-            if (_totalPoints <= 0)
-            {
-                _totalPoints = 0;
-            }
+            PointsDecrease();
             scoreText.text = _totalPoints.ToString();
           
             
@@ -340,8 +346,15 @@ public class GameManager : MonoBehaviour
 
             WhichNumberOfGame();
         }
+    }
 
-        
+    private void PointsDecrease()
+    {
+        _totalPoints -= 10 * _whichNumberOfGame;
+        if (_totalPoints <= 0)
+        {
+            _totalPoints = 0;
+        }
     }
 
     void LowerTheCounterIfPlayerFails()

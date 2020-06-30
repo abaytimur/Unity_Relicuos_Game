@@ -22,7 +22,7 @@ public class TimerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _remainingTime = 5;
+        _remainingTime = 60;
         _keepCountingDown = true;
     }
 
@@ -37,7 +37,7 @@ public class TimerManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (_remainingTime < 10)
+            if (_remainingTime <= 10)
             {
                 timerText.text = "0" + _remainingTime.ToString();
                 timerText.fontStyle = FontStyle.Bold;

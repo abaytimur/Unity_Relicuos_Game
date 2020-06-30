@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,11 +14,20 @@ public class ResultManager : MonoBehaviour
     private int _pointTime = 10;
     private bool _isTimeOver = true;
     private int _totalPoints, _pointsToBeWritten, _increasementPoints;
-
+    
+    public Animator animator;
+    
+    [SerializeField] private GameObject restartButton, mainMenuButton;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private string url;
+    
+    private RectTransform _rectTransformRestartButton, _rectTransformMainMenuButton;
+    private static readonly int StartAnimating = Animator.StringToHash("startAnimating");
 
     private void Awake()
     {
+        _rectTransformRestartButton = restartButton.GetComponent<RectTransform>();
+        _rectTransformMainMenuButton = mainMenuButton.GetComponent<RectTransform>();
         _isTimeOver = true;
     }
 
@@ -53,7 +63,12 @@ public class ResultManager : MonoBehaviour
             }
 
             _pointTime--;
+
+            
         }
+        _rectTransformRestartButton.DOScale(1, 1f).SetEase(Ease.OutBack);
+        _rectTransformMainMenuButton.DOScale(1, 1f).SetEase(Ease.OutBack); 
+        animator.SetBool(StartAnimating, true);
     }
 
     public void GoToMainMenu()
@@ -65,5 +80,10 @@ public class ResultManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("GameLevel");
+    }
+
+    public void OpenWebsiteUrl()
+    {
+        Application.OpenURL(url);
     }
 }
